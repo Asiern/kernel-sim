@@ -9,4 +9,8 @@ struct _core
 };
 typedef struct _core core;
 
+core *init_core()
+{
+    return NULL;
+}
 #endif

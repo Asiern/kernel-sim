@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "machine.h"
 #include "utils.h"
 
 int main(int argc, char *const argv[])
@@ -32,5 +34,14 @@ int main(int argc, char *const argv[])
 
     cprint("asdas", RED);
     cprint("asdas", MAGENTA);
+
+    // Inicializar las estructuras
+    // TODO
+    machine m;
+    init_machine(&m, 2, 2, 4);
+
+    // Lanzar los hilos
+    // TODO
+
     return 0;
 }
