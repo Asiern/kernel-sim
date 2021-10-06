@@ -10,6 +10,8 @@ set(
     src/thread.h
     src/timer.h
     src/utils.h
+    src/process.h
+    src/machine.h
     src/main.c
 )
 
