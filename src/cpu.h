@@ -2,18 +2,15 @@
 #define _CPU_H
 #include "core.h"
 
-struct _cpu
+typedef struct
 {
-    core *c;
-};
-typedef struct _cpu cpu;
+    core *cores;
+} cpu;
 
-cpu *init_cpu(int n_cores)
+void init_cpu(cpu *c, int n_cores, int n_threads)
 {
-    cpu c;
-    c.c = (core *)malloc(sizeof(core) * n_cores);
+    c->cores = (core *)malloc(sizeof(core) * n_cores);
     for (int i = 0; i < n_cores; i++)
-        c.c->t = init_core();
-    return &c;
+        init_core(&(c->cores[i]), n_threads);
 }
 #endif

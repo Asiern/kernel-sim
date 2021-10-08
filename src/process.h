@@ -1,19 +1,34 @@
 #ifndef _PCB_H
 #define _PCB_H
-struct _pcb
+
+typedef struct
 {
     long pid;
     float lifetime;
-};
-typedef struct _pcb pcb;
+} pcb;
+
 #endif
 
 #ifndef _QUEUE_H
 #define _QUEUE_H
-struct _queue
+#include <stdlib.h>
+
+typedef struct
 {
     pcb *queue;
-    int number;
-};
-typedef struct _queue queue;
+    int last;
+    int size;
+} queue;
+
+void init_queue(queue *q, int size)
+{
+    q = (queue *)malloc(sizeof(queue) * size);
+    q->last = 0;
+    q->size = size;
+}
+
+pcb *item_at(int index, queue *q)
+{
+    return &(q->queue[index]);
+}
 #endif

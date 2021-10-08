@@ -1,9 +1,12 @@
 #ifndef _THREAD_H
 #define _THREAD_H
 
-struct _thread
+typedef struct
 {
-};
-typedef struct _thread thread;
+} thread;
 
+void init_thread(thread *t)
+{
+    t = NULL;
+}
 #endif

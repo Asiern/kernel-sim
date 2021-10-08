@@ -7,7 +7,6 @@
 #define BLUE 4
 #define MAGENTA 5
 #define CYAN 6
-#define RESET 7
 
 #define COLOR_RED "\x1b[31m"
 #define COLOR_GREEN "\x1b[32m"
