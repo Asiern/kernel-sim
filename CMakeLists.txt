@@ -5,16 +5,16 @@ project(kernel-sim)
 
 set(
     SRC
-    src/utils.h
-    src/defines.h
-    src/clock.h
-    src/core.h
-    src/scheduler.h
-    src/thread.h
-    src/timer.h
-    src/process.h
-    src/machine.h
-    src/main.c
+    "src/utils.h"
+    "src/defines.h"
+    "src/clock.h"
+    "src/core.h"
+    "src/scheduler.h"
+    "src/thread.h"
+    "src/timer.h"
+    "src/process.h"
+    "src/machine.h"
+    "src/main.c"
 )
 
 set(CMAKE_C_FLAGS "-pthread")
@@ -26,5 +26,8 @@ else()
     set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -ggdb")
 endif()
 
-
-add_executable(${PROJECT_NAME} ${SRC})
+if(WIN32)
+    add_executable(${PROJECT_NAME} WIN32 ${SRC})
+else()
+    add_executable(${PROJECT_NAME} ${SRC})
+endif()
