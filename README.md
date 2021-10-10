@@ -4,8 +4,13 @@
 
 ```
 # Configure workspace
-$ ./configure.sh
+$ python3 configure.sh -b [BUILD_TYPE]
 ```
+
+Build type:
+
+- `DEBUG:` default value
+- `RELEASE:`
 
 ### Building
 
