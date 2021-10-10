@@ -7,7 +7,6 @@
 #define BLUE 4
 #define MAGENTA 5
 #define CYAN 6
-#define RESET 7
 
 #define COLOR_RED "\x1b[31m"
 #define COLOR_GREEN "\x1b[32m"
@@ -24,25 +23,27 @@ void cprint(char const *const text, int color)
     switch (color)
     {
     case RED:
-        printf(COLOR_RED "text" COLOR_RESET "\n");
+        printf(COLOR_RED);
         break;
     case GREEN:
-        printf(COLOR_GREEN "text" COLOR_RESET "\n");
+        printf(COLOR_GREEN);
         break;
     case YELLOW:
-        printf(COLOR_YELLOW "text" COLOR_RESET "\n");
+        printf(COLOR_YELLOW);
         break;
     case BLUE:
-        printf(COLOR_BLUE "text" COLOR_RESET "\n");
+        printf(COLOR_BLUE);
         break;
     case MAGENTA:
-        printf(COLOR_MAGENTA "text" COLOR_RESET "\n");
+        printf(COLOR_MAGENTA);
         break;
     case CYAN:
-        printf(COLOR_CYAN "text" COLOR_RESET "\n");
+        printf(COLOR_CYAN);
         break;
     default:
         break;
     }
+    printf(text);
+    printf(COLOR_RESET "\n");
 }
 #endif
