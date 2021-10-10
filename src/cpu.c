@@ -1,11 +1,5 @@
-#ifndef _CPU_H
-#define _CPU_H
-#include "core.h"
-
-typedef struct
-{
-    core *cores;
-} cpu;
+#include "cpu.h"
+#include "core.c"
 
 void init_cpu(cpu *c, int n_cores, int n_threads)
 {
@@ -13,4 +7,3 @@ void init_cpu(cpu *c, int n_cores, int n_threads)
     for (int i = 0; i < n_cores; i++)
         init_core(&(c->cores[i]), n_threads);
 }
-#endif

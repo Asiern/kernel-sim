@@ -1,12 +1,4 @@
-#ifndef _CORE_H
-
-#define _CORE_H
-#include "thread.h"
-
-typedef struct
-{
-    thread *threads;
-} core;
+#include "core.h"
 
 void init_core(core *c, int n_threads)
 {
@@ -14,5 +6,3 @@ void init_core(core *c, int n_threads)
     for (int i = 0; i < n_threads; i++)
         init_thread(&(c->threads[i]));
 }
-
-#endif

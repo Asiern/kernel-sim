@@ -5,12 +5,4 @@
 
 #include "defines.h"
 #include "utils.h"
-
-void clk(void)
-{
-    while (1)
-    {
-        cprint("Clock", GREEN);
-    }
-}
 #endif
