@@ -1,5 +1,6 @@
 #include "cpu.h"
-#include "core.c"
+#include "core.h"
+#include <stdlib.h>
 
 void init_cpu(cpu *c, int n_cores, int n_threads)
 {

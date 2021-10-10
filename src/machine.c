@@ -1,5 +1,6 @@
 #include "machine.h"
-#include "cpu.c"
+#include "cpu.h"
+#include <stdlib.h>
 
 void init_machine(machine *m, int n_cpus, int n_cores, int n_threads)
 {

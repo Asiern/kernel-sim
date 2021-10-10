@@ -4,10 +4,10 @@
 
 #include "defines.h"
 #include "utils.h"
-#include "machine.c"
-#include "clock.c"
+#include "machine.h"
+#include "clock.h"
 #include "process.h"
-#include "procqueue.c"
+#include "procqueue.h"
 
 pthread_mutex_t clock_mutex;
 

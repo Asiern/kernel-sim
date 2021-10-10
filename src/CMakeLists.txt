@@ -2,7 +2,13 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 
 set(
     SRC
+    "clock.c"
+    "core.c"
+    "cpu.c"
+    "machine.c"
     "main.c"
+    "procqueue.c"
+    "thread.c"
 )
 
 if(WIN32)

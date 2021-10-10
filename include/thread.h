@@ -5,8 +5,5 @@ typedef struct
 {
 } thread;
 
-void init_thread(thread *t)
-{
-    t = NULL;
-}
+void init_thread(thread *t);
 #endif
