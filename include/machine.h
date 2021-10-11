@@ -5,8 +5,8 @@
 
 typedef struct
 {
-    cpu *cpus;
+    cpu* cpus;
 } machine;
 
-void init_machine(machine *m, int n_cpus, int n_cores, int n_threads);
+void init_machine(machine* m, int n_cpus, int n_cores, int n_threads);
 #endif

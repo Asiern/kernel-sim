@@ -4,9 +4,9 @@
 
 typedef struct
 {
-    core *cores;
+    core* cores;
 } cpu;
 
-void init_cpu(cpu *c, int n_cores, int n_threads);
+void init_cpu(cpu* c, int n_cores, int n_threads);
 
 #endif
