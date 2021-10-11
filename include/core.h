@@ -5,9 +5,9 @@
 
 typedef struct
 {
-    thread *threads;
+    thread* threads;
 } core;
 
-void init_core(core *c, int n_threads);
+void init_core(core* c, int n_threads);
 
 #endif

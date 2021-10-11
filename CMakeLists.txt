@@ -4,10 +4,19 @@ project(kernel-sim)
 
 set(CMAKE_C_FLAGS "-pthread")
 
-if(CMAKE_BUILD_TYPE STREQUAL "RELEASE")
-    set(CMAKE_C_FLAGS_RELEASE "-Wall -Wextra -Werror")
+# Compiler flags
+if(UNIX AND NOT MACOS)
+    if(${CMAKE_BUILD_TYPE} STREQUAL "RELEASE")
+        message(STATUS "Using Release flags")
+        set(CMAKE_C_FLAGS_RELEASE "-Wall -Wextra -Werror")
+    else()
+        message(STATUS "Using Debug flags")
+        set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -ggdb")
+    endif()
+elseif(WIN32)
+    message(WARNING "Windows config found")
 else()
-    set(CMAKE_C_FLAGS_DEBUG "-Wall -Wextra -ggdb")
+    message(WARNING "MACOS config found")
 endif()
 
 add_subdirectory(src)

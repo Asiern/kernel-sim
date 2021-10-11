@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 
-void cprint(char const *const text, int color)
+void cprint(char const* const text, int color)
 {
     switch (color)
     {

@@ -5,5 +5,5 @@ typedef struct
 {
 } thread;
 
-void init_thread(thread *t);
+void init_thread(thread* t);
 #endif

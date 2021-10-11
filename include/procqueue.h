@@ -5,11 +5,11 @@
 
 typedef struct
 {
-    pcb *queue;
+    pcb* queue;
     int last;
     int size;
 } queue;
 
-void init_queue(queue *q, int size);
+void init_queue(queue* q, int size);
 
 #endif
