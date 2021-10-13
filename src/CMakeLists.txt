@@ -10,6 +10,7 @@ set(
     "procqueue.c"
     "thread.c"
     "process.c"
+    "utils.c"
 )
 
 if(WIN32)

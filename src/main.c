@@ -3,7 +3,7 @@
 #include <unistd.h>
 
 #include "clock.h"
-#include "defines.h"
+#include "globals.h"
 #include "machine.h"
 #include "process.h"
 #include "procqueue.h"

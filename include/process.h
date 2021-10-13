@@ -1,9 +1,8 @@
 #ifndef _PCB_H
 #define _PCB_H
 
+#include "globals.h"
 #include <stdlib.h>
-
-extern long last_id;
 
 typedef struct
 {

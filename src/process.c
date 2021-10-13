@@ -1,5 +1,7 @@
 #include "process.h"
 
+unsigned long last_id;
+
 pcb create_pcb(void)
 {
     pcb p;
