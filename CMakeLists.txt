@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16.3)
 
 project(kernel-sim)
 
-set(CMAKE_C_FLAGS "-pthread")
+set(CMAKE_C_FLAGS "-pthread -ansi")
 
 # Compiler flags
 if(UNIX AND NOT MACOS)
