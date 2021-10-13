@@ -9,6 +9,7 @@ set(
     "main.c"
     "procqueue.c"
     "thread.c"
+    "process.c"
 )
 
 if(WIN32)
