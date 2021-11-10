@@ -4,6 +4,17 @@
 #include <pthread.h>
 
 #include "globals.h"
+#include "machine.h"
+#include "timer.h"
 #include "utils.h"
+
+typedef struct
+{
+    timer* timer;
+    machine* machine;
+} clock_k;
+
+void init_clock(machine* m, timer* t, clock_k* c);
+void* start_clock(clock_k* c);
 
 #endif
