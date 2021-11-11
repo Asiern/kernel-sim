@@ -11,6 +11,8 @@ set(
     "thread.c"
     "process.c"
     "utils.c"
+    "timer.c"
+    "scheduler.c"
 )
 
 if(WIN32)

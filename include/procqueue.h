@@ -11,5 +11,7 @@ typedef struct
 } queue;
 
 void init_queue(queue* q, int size);
+void free_queue(queue* q);
+void addItem(queue* q, pcb* item);
 
 #endif

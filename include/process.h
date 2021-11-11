@@ -11,5 +11,11 @@ typedef struct
 } pcb;
 
 pcb create_pcb(void);
+typedef struct
+{
+    pcb* pcb;
+} start_pcb_params;
+
+void* start_pcb(void* params);
 
 #endif

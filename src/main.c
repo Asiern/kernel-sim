@@ -7,6 +7,8 @@
 #include "machine.h"
 #include "process.h"
 #include "procqueue.h"
+#include "scheduler.h"
+#include "timer.h"
 #include "utils.h"
 
 int main(int argc, char* const argv[])
@@ -41,7 +43,7 @@ int main(int argc, char* const argv[])
     }
 
     /* Inicializar las estructuras */
-    cprint("Inicializando estructuras...", BLUE);
+    cprint("Inicializando estructuras...", GREEN);
     pthread_mutex_t clock_mutex;
     if (pthread_mutex_init(&clock_mutex, NULL))
     {
@@ -56,7 +58,7 @@ int main(int argc, char* const argv[])
         exit(-1);
     }
 
-    /*TODO Inicializar machine*/
+    /* Inicializar machine */
     machine m;
     init_machine(&m, cpus, cores, threads);
 
@@ -69,17 +71,45 @@ int main(int argc, char* const argv[])
 
     /*TODO Inicializar queue*/
     queue q;
+    init_queue(&q, queue_size);
 
-    /*TODO Lanzar los hilos */
-    cprint("Lanzando hilos...", BLUE);
+    /* Lanzar los hilos */
+    cprint("Lanzando hilos...", GREEN);
     pthread_t clock_thread, pgen_thread, sched_thread, timer_thread;
 
     cprint("Creando hilo del Clock", 0);
-    pthread_create(&clock_thread, NULL, (void*)start_clock(&c), (void*)&c);
+    start_clock_params* clock_params = (start_clock_params*)malloc(sizeof(start_clock_params));
+    clock_params->c = &c;
+    pthread_create(&clock_thread, NULL, (void*)start_clock, (void*)clock_params);
 
     cprint("Creando hilo del PG", 0);
-    cprint("Creando hilo del Timer", 0);
+    start_pcb_params* pcb_params = (start_pcb_params*)malloc(sizeof(start_pcb_params));
+    pcb_params->pcb = NULL;
+    pthread_create(&pgen_thread, NULL, (void*)start_pcb, (void*)pcb_params);
 
-    pthread_join(&clock_thread, NULL);
+    cprint("Creando hilo del Timer", 0);
+    start_timer_params* timer_params = (start_timer_params*)malloc(sizeof(start_timer_params));
+    timer_params->t = &t;
+    pthread_create(&timer_thread, NULL, (void*)start_timer, (void*)timer_params);
+
+    cprint("Creando hilo del Sched", 0);
+    start_sched_params* sched_params = (start_sched_params*)malloc(sizeof(start_sched_params));
+    /*TODO Define start_sched params*/
+    pthread_create(&sched_thread, NULL, (void*)start_sched, (void*)sched_params);
+
+    /* Join */
+    pthread_join(clock_thread, NULL);
+    pthread_join(pgen_thread, NULL);
+    pthread_join(timer_thread, NULL);
+    pthread_join(sched_thread, NULL);
+
+    /*TODO Mem free */
+    cprint("Cleaning", GREEN);
+    free(clock_params);
+    free(pcb_params);
+    free(timer_params);
+    free(sched_params);
+    free_queue(&q);
+
     return 0;
 }

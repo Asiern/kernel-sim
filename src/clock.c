@@ -9,8 +9,9 @@ void init_clock(machine* m, timer* t, clock_k* c)
     c->timer = t;
 }
 
-void* start_clock(clock_k* c)
+void* start_clock(void* params)
 {
+    start_clock_params* param = (start_clock_params*)params;
     while (1)
     {
         /* Avanzar estructura CPUs */

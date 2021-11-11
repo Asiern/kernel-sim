@@ -9,3 +9,8 @@ pcb create_pcb(void)
     p.lifetime = rand();
     return p;
 }
+
+void* start_pcb(void* params)
+{
+    start_pcb_params* param = (start_pcb_params*)param;
+}
