@@ -1,5 +1,6 @@
 #include "process.h"
-
+#include "globals.h"
+#include "semaphore.h"
 unsigned long last_id;
 
 pcb create_pcb(void)
@@ -13,4 +14,10 @@ pcb create_pcb(void)
 void* start_pcb(void* params)
 {
     start_pcb_params* param = (start_pcb_params*)param;
+    while (1)
+    {
+        // pcb obj = create_pcb();
+        // sem_wait(proc_queue_sem);
+        // pthread_mutex_lock
+    }
 }
