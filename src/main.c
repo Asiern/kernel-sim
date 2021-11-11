@@ -65,11 +65,11 @@ int main(int argc, char* const argv[])
     /*TODO Inicializar timer*/
     timer t;
 
-    /*Inicializar clock*/
+    /* Inicializar clock */
     clock_k c;
     init_clock(&m, &t, &c);
 
-    /*TODO Inicializar queue*/
+    /*TODO Inicializar queue */
     queue q;
     init_queue(&q, queue_size);
 
@@ -94,7 +94,7 @@ int main(int argc, char* const argv[])
 
     cprint("Creando hilo del Sched", 0);
     start_sched_params* sched_params = (start_sched_params*)malloc(sizeof(start_sched_params));
-    /*TODO Define start_sched params*/
+    /*TODO Define start_sched params */
     pthread_create(&sched_thread, NULL, (void*)start_sched, (void*)sched_params);
 
     /* Join */
