@@ -7,7 +7,6 @@ set(
     "cpu.c"
     "machine.c"
     "main.c"
-    "procqueue.c"
     "thread.c"
     "process.c"
     "utils.c"

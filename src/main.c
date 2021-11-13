@@ -6,10 +6,13 @@
 #include "globals.h"
 #include "machine.h"
 #include "process.h"
-#include "procqueue.h"
 #include "scheduler.h"
 #include "timer.h"
 #include "utils.h"
+
+/* GLOBALS */
+pthread_mutex_t clock_mutex;
+sem_t proc_queue_sem;
 
 int main(int argc, char* const argv[])
 {
@@ -35,27 +38,25 @@ int main(int argc, char* const argv[])
         case 'h':
             cprint("Kernel Sim", MAGENTA);
             cprint("Uso:", MAGENTA);
-            exit(1);
+            return 0;
         default:
             printf("%s\n", "Illegal command arguments");
-            exit(-1);
+            return 1;
         }
     }
 
     /* Inicializar las estructuras */
     cprint("Inicializando estructuras...", GREEN);
-    pthread_mutex_t clock_mutex;
-    if (pthread_mutex_init(&clock_mutex, NULL))
+    if (pthread_mutex_init(&clock_mutex, NULL) != 0)
     {
         cprint("Error al iniciar mutex", RED);
-        exit(-1);
+        return 1;
     }
 
-    sem_t proc_queue_sem;
-    if (sem_init(&proc_queue_sem, 0, queue_size))
+    if (sem_init(&proc_queue_sem, 0, queue_size) != 0)
     {
         cprint("Error al iniciar semaforo", RED);
-        exit(-1);
+        return 1;
     }
 
     /* Inicializar machine */
@@ -84,7 +85,7 @@ int main(int argc, char* const argv[])
 
     cprint("Creando hilo del PG", 0);
     start_pcb_params* pcb_params = (start_pcb_params*)malloc(sizeof(start_pcb_params));
-    pcb_params->pcb = NULL;
+    pcb_params->q = &q;
     pthread_create(&pgen_thread, NULL, (void*)start_pcb, (void*)pcb_params);
 
     cprint("Creando hilo del Timer", 0);
@@ -95,21 +96,17 @@ int main(int argc, char* const argv[])
     cprint("Creando hilo del Sched", 0);
     start_sched_params* sched_params = (start_sched_params*)malloc(sizeof(start_sched_params));
     /*TODO Define start_sched params */
+    sched_params->quantum = quantum;
+    sched_params->q = &q;
     pthread_create(&sched_thread, NULL, (void*)start_sched, (void*)sched_params);
+
+    /* EL PROGRAMA NO DEBERIA DE PASAR DE AQUI */
 
     /* Join */
     pthread_join(clock_thread, NULL);
     pthread_join(pgen_thread, NULL);
     pthread_join(timer_thread, NULL);
     pthread_join(sched_thread, NULL);
-
-    /*TODO Mem free */
-    cprint("Cleaning", GREEN);
-    free(clock_params);
-    free(pcb_params);
-    free(timer_params);
-    free(sched_params);
-    free_queue(&q);
 
     return 0;
 }

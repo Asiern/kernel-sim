@@ -25,6 +25,6 @@ void cprint(char const* const text, int color)
     default:
         break;
     }
-    printf(text);
+    printf("%s", text);
     printf(COLOR_RESET "\n");
 }

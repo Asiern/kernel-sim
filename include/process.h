@@ -3,19 +3,30 @@
 
 #include "globals.h"
 #include <stdlib.h>
-
 typedef struct
 {
     long pid;
     float lifetime;
 } pcb;
 
+typedef struct
+{
+    pcb* queue;
+    int first;
+    int last;
+    int size;
+} queue;
+
+void init_queue(queue* q, int size);
+void free_queue(queue* q);
+void addItem(queue* q, pcb* item);
+
 pcb create_pcb(void);
 typedef struct
 {
-    pcb* pcb;
+    queue* q;
 } start_pcb_params;
 
-void* start_pcb(void* params);
+void* start_pcb(queue* q);
 
 #endif

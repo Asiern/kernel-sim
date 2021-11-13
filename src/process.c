@@ -1,7 +1,34 @@
 #include "process.h"
 #include "globals.h"
-#include "semaphore.h"
+#include "procqueue.h"
+#include "utils.h"
+#include <semaphore.h>
+#include <unistd.h>
+
+/* GLOBALS */
 unsigned long last_id;
+sem_t proc_queue_sem;
+pthread_mutex_t queue_mtx;
+
+void init_queue(queue* q, int size)
+{
+    q = (queue*)malloc(sizeof(queue));
+    q->first = 0;
+    q->last = 0;
+    q->size = size;
+    q->queue = (pcb*)malloc(sizeof(pcb) * size);
+}
+
+void free_queue(queue* q)
+{
+    free(q->queue);
+}
+
+void addItem(queue* q, pcb* item)
+{
+    q->queue[q->last] = *item;
+    q->last = (q->last + 1) % q->size;
+}
 
 pcb create_pcb(void)
 {
@@ -11,13 +38,17 @@ pcb create_pcb(void)
     return p;
 }
 
-void* start_pcb(void* params)
+void* start_pcb(queue* q)
 {
-    start_pcb_params* param = (start_pcb_params*)param;
     while (1)
     {
-        // pcb obj = create_pcb();
-        // sem_wait(proc_queue_sem);
-        // pthread_mutex_lock
+        while ((q->first - 1) % queue_size == q->last)
+        {
+        }
+        pcb obj = create_pcb();
+        pthread_mutex_lock(&queue_mtx);
+        addItem(q, &obj);
+        pthread_mutex_unlock(&queue_mtx);
+        sleep(1);
     }
 }
