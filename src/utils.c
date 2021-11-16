@@ -1,5 +1,11 @@
 #include "utils.h"
 
+/**
+ * @brief Printf with colors!!!
+ * @param text
+ * @param color
+ * @return (void)
+ */
 void cprint(char const* const text, int color)
 {
     switch (color)
@@ -27,4 +33,15 @@ void cprint(char const* const text, int color)
     }
     printf("%s", text);
     printf(COLOR_RESET "\n");
+}
+
+/**
+ * @brief Calcular modulo
+ * @param x
+ * @param y
+ * @return x mod y
+ */
+int modulo(int x, int y)
+{
+    return (x % y + y) % y;
 }

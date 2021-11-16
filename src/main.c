@@ -72,7 +72,7 @@ int main(int argc, char* const argv[])
 
     /*TODO Inicializar queue */
     queue q;
-    init_queue(&q, queue_size);
+    init_queue(&q);
 
     /* Lanzar los hilos */
     cprint("Lanzando hilos...", GREEN);
@@ -95,7 +95,6 @@ int main(int argc, char* const argv[])
 
     cprint("Creando hilo del Sched", 0);
     start_sched_params* sched_params = (start_sched_params*)malloc(sizeof(start_sched_params));
-    /*TODO Define start_sched params */
     sched_params->quantum = quantum;
     sched_params->q = &q;
     pthread_create(&sched_thread, NULL, (void*)start_sched, (void*)sched_params);

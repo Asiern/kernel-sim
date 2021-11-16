@@ -11,6 +11,7 @@ void init_clock(machine* m, timer* t, clock_k* c)
 
 void* start_clock(void* params)
 {
+    int i;
     start_clock_params* param = (start_clock_params*)params;
     while (1)
     {

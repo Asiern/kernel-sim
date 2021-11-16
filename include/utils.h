@@ -19,5 +19,5 @@
 #include <stdio.h>
 
 void cprint(char const* const text, int color);
-
+int modulo(int x, int y);
 #endif

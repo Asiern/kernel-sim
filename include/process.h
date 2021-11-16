@@ -14,12 +14,12 @@ typedef struct
     pcb* queue;
     int first;
     int last;
-    int size;
 } queue;
 
-void init_queue(queue* q, int size);
-void free_queue(queue* q);
+void init_queue(queue* q);
 void addItem(queue* q, pcb* item);
+pcb pop_queue(queue* q);
+void move_queue(queue* q);
 
 pcb create_pcb(void);
 typedef struct
