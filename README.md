@@ -8,19 +8,18 @@ Para configurar el entorno de trabajo es necesario la instalación de las siguie
 
 - cmake
 - build-essential
-- gcc
 - git (para clonar el repositorio)
-- python (Opcional)
+- pyhton (opcional)
 
 Estas herramientas pueden ser instaladas de la siguiente manera (Ubuntu): 
 ```
-$ sudo apt install build-essential cmake
+sudo apt install build-essential cmake pyhton3
 ```
 
 #### Clonar el repositiorio
 
 ```
-$ git clone https://github.com/Asiern/kernel-sim.git
+git clone https://github.com/Asiern/kernel-sim.git
 ```
 
 #### Configuración
@@ -28,27 +27,27 @@ $ git clone https://github.com/Asiern/kernel-sim.git
 Configurar el entorno de trabajo mediante script (recomendado):
 
 ```
-$ python3 configure.sh -b [BUILD_TYPE]
+python3 configure.sh -b [BUILD_TYPE]
 ```
 
 Configurar el entorno de trabajo sin usar scripts:
 
 ```
-$ cmake -B /build -DCMAKE_BUILD_TYPE=[BUILD_TYPE]
+cmake -B build -DCMAKE_BUILD_TYPE=[BUILD_TYPE]
 ```
 
 *BUILD_TYPE*:
 
 El valor de este parámetro determina la configuración que se utilizará a la hora de compilar.
 
-- `DEBUG:` añade flags para habilitar el debugger `-g`.
-- `RELEASE:` añade flags como `-Werror` para que no sea posible compilar con warnings.
+- `DEBUG` añade flags para habilitar el debugger `-g`.
+- `RELEASE` añade flags como `-Werror` para que no sea posible compilar con warnings.
 
 ### Compilación
 
 Una vez configurado el entorno de trabajo y seleccionado el `BUILD_TYPE`, el proyecto se puede compilar con el siguiente comando.
 ```
-$ cd build && make
+cd build && make
 ```
 
 ### Estrucura del codigo fuente
