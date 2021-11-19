@@ -3,11 +3,8 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 set(
     SRC
     "clock.c"
-    "core.c"
-    "cpu.c"
     "machine.c"
     "main.c"
-    "thread.c"
     "process.c"
     "utils.c"
     "timer.c"
