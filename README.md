@@ -16,7 +16,7 @@ Estas herramientas pueden ser instaladas de la siguiente manera (Ubuntu):
 sudo apt install build-essential cmake pyhton3
 ```
 
-#### Clonar el repositiorio
+#### Clonar el repositorio
 
 ```
 git clone https://github.com/Asiern/kernel-sim.git
