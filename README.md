@@ -9,7 +9,7 @@ Para configurar el entorno de trabajo es necesario la instalación de las siguie
 - cmake
 - build-essential
 - git (para clonar el repositorio)
-- pyhton (opcional)
+- python (opcional)
 
 Estas herramientas pueden ser instaladas de la siguiente manera (Ubuntu): 
 ```
