@@ -6,13 +6,20 @@
 #include "globals.h"
 #include "machine.h"
 #include "process.h"
-#include "procqueue.h"
+#include "scheduler.h"
+#include "timer.h"
 #include "utils.h"
+
+/* GLOBALS */
+pthread_mutex_t clock_mutex;
+sem_t proc_queue_sem;
+unsigned int quantum = 4, cpus = 4, cores = 2, threads = 1;
+machine m;
 
 int main(int argc, char* const argv[])
 {
     /* Get params */
-    int opt, quantum = 0, cpus = 0, cores = 0, threads = 0;
+    int opt;
 
     while ((opt = getopt(argc, argv, "h,q:c:r:t:")) != -1)
     {
@@ -31,32 +38,61 @@ int main(int argc, char* const argv[])
             threads = atoi(optarg);
             break;
         case 'h':
-            cprint("Kernel Sim", MAGENTA);
-            cprint("Uso:", MAGENTA);
-            exit(1);
+            cprint("[ KERNEL SIM ]\n", CYAN);
+            cprint("USAGE:\n", CYAN);
+            cprint("   ./kernel-sim -q [quantum] -c [number of cpus] -r [number of cores] -t [number of threads]\n", 0);
+            cprint("OPTIONS:\n", CYAN);
+            cprint("   -q, set scheduler quantum (default 4)\n", 0);
+            cprint("   -c, set number of cups (default 1)\n", 0);
+            cprint("   -q, set number of cores per cpu (default 2)\n", 0);
+            cprint("   -q, set number of thread per core (default 2)\n", 0);
+            return 0;
         default:
             printf("%s\n", "Illegal command arguments");
-            exit(-1);
+            return 1;
         }
     }
 
     /* Inicializar las estructuras */
-    cprint("Inicializando estructuras...", BLUE);
-    pthread_mutex_t clock_mutex;
+    cprint("Inicializando estructuras...\n", GREEN);
     if (pthread_mutex_init(&clock_mutex, NULL))
     {
-        cprint("Error al iniciar mutex", RED);
-        exit(-1);
+        cprint("Error al iniciar mutex\n", RED);
+        return 1;
     }
 
-    machine m;
-    init_machine(&m, cpus, cores, threads);
+    if (sem_init(&proc_queue_sem, 0, queue_size))
+    {
+        cprint("Error al iniciar semaforo\n", RED);
+        return 1;
+    }
 
-    queue q;
+    /* Inicializar machine */
+    init_machine(&m, cpus, cores, threads);
+    init_queue();
 
     /* Lanzar los hilos */
-    cprint("Lanzando hilos...", BLUE);
+    cprint("Lanzando hilos...\n", GREEN);
     pthread_t clock_thread, pgen_thread, sched_thread, timer_thread;
+
+    cprint("Creando hilo del Clock...\n", GREEN);
+    pthread_create(&clock_thread, NULL, (void*)start_clock, NULL);
+
+    cprint("Creando hilo del PG...\n", GREEN);
+    pthread_create(&pgen_thread, NULL, (void*)start_pcb, NULL);
+
+    cprint("Creando hilo del Timer...\n", GREEN);
+    pthread_create(&timer_thread, NULL, (void*)start_timer, NULL);
+
+    cprint("Creando hilo del Sched...\n", GREEN);
+    pthread_create(&sched_thread, NULL, (void*)start_sched, NULL);
+
+    /* EL PROGRAMA NO DEBERIA DE PASAR DE AQUI */
+
+    pthread_join(clock_thread, NULL);
+    pthread_join(pgen_thread, NULL);
+    pthread_join(timer_thread, NULL);
+    pthread_join(sched_thread, NULL);
 
     return 0;
 }
