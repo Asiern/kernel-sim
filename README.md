@@ -50,7 +50,7 @@ Una vez configurado el entorno de trabajo y seleccionado el `BUILD_TYPE`, el pro
 cd build && make
 ```
 
-### Estrucura del codigo fuente
+### Estructura del código fuente
 
 | Directorio | Descripción                                                                                                                      |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
