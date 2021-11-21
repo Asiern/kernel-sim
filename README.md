@@ -13,7 +13,7 @@ Para configurar el entorno de trabajo es necesario la instalación de las siguie
 
 Estas herramientas pueden ser instaladas de la siguiente manera (Ubuntu): 
 ```
-sudo apt install build-essential cmake pyhton3
+sudo apt install build-essential cmake python3
 ```
 
 #### Clonar el repositorio
