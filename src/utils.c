@@ -8,8 +8,8 @@ extern unsigned int threads;
 
 /**
  * @brief Printf with colors!!!
- * @param text
- * @param color
+ * @param text text to print
+ * @param color text color
  * @return (void)
  */
 void cprint(char const* const text, int color)
@@ -42,7 +42,7 @@ void cprint(char const* const text, int color)
 }
 
 /**
- * @brief Calcular modulo
+ * @brief Calculate x mod y
  * @param x
  * @param y
  * @return x mod y

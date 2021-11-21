@@ -49,6 +49,11 @@ pcb pop_queue(void)
     return item;
 }
 
+/**
+ * @brief Move queue
+ * @param (void)
+ * @return (void)
+ */
 void move_queue(void)
 {
     cprint("Moviendo elementos de la cola\n", YELLOW);
@@ -64,7 +69,7 @@ void move_queue(void)
 
 /**
  * @brief Generate pcb
- * @param void
+ * @param (void)
  * @return Generated pcb
  */
 pcb create_pcb(void)

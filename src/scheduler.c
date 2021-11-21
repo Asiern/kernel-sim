@@ -6,6 +6,11 @@ unsigned int _time;
 pthread_mutex_t timer_mtx;
 queue q;
 
+/**
+ * @brief Scheduler thread worker
+ * @param (void)
+ * @return (void)
+ */
 void* start_sched(void)
 {
     while (1)

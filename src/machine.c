@@ -1,5 +1,11 @@
 #include "machine.h"
 
+/**
+ * @brief Initialize thread
+ * @param t thread pointer
+ * @param id thread id
+ * @return (void)
+ */
 void init_thread(thread* t, int id)
 {
     t = (thread*)malloc(sizeof(thread));
@@ -8,6 +14,12 @@ void init_thread(thread* t, int id)
     t->process = NULL;
 }
 
+/**
+ * @brief Initialize core
+ * @param c core pointer
+ * @param n_threads number of threads per core
+ * @return (void)
+ */
 void init_core(core* c, int n_threads)
 {
     int i = 0;
@@ -16,6 +28,13 @@ void init_core(core* c, int n_threads)
         init_thread(&(c->threads[i]), i);
 }
 
+/**
+ * @brief Initialize cpu
+ * @param c cpu pointer
+ * @param n_cores number of cores per cpu
+ * @param n_threads number of threads per core
+ * @return (void)
+ */
 void init_cpu(cpu* c, int n_cores, int n_threads)
 {
     int i = 0;
@@ -24,6 +43,14 @@ void init_cpu(cpu* c, int n_cores, int n_threads)
         init_core(&(c->cores[i]), n_threads);
 }
 
+/**
+ * @brief Initialize machine
+ * @param m machine pointer
+ * @param n_cpus number of cpus
+ * @param n_cores number of cores per cpu
+ * @param n_threads number of threads per core
+ * @return (void)
+ */
 void init_machine(machine* m, int n_cpus, int n_cores, int n_threads)
 {
     int i = 0;
