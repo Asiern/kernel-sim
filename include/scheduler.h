@@ -1,13 +1,10 @@
 #ifndef _SCHEDULER_H
 #define _SCHEDULER_H
+#include "globals.h"
 #include "process.h"
+#include "types.h"
+#include "utils.h"
 
-typedef struct
-{
-    queue* q;
-    int quantum;
-} start_sched_params;
-
-void* start_sched(void* params);
+void* start_sched(void);
 
 #endif

@@ -1,5 +1,4 @@
 #include "machine.h"
-#include <stdlib.h>
 
 void init_thread(thread* t, int id)
 {
@@ -31,8 +30,10 @@ void init_machine(machine* m, int n_cpus, int n_cores, int n_threads)
     m->cpus = (cpu*)malloc(n_cpus * sizeof(cpu));
     for (; i < n_cpus; i++)
         init_cpu(&(m->cpus[i]), n_cores, n_threads);
+    /*m->usage = calloc(n_threads * n_cores * n_cpus, sizeof(unsigned int));*/
 }
 
-int loadPCB(machine* m, pcb* pcb)
+/*int loadPCB(machine* m, pcb* pcb)
 {
-}
+    return 0;
+}*/

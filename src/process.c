@@ -1,13 +1,11 @@
 #include "process.h"
-#include "globals.h"
-#include "utils.h"
-#include <semaphore.h>
-#include <unistd.h>
 
 /* GLOBALS */
 unsigned long last_id;
 sem_t proc_queue_sem;
 pthread_mutex_t queue_mtx;
+machine m;
+queue q;
 
 /**
  * @brief Initialize queue
@@ -15,12 +13,12 @@ pthread_mutex_t queue_mtx;
  * @param size queue size
  * @return (void)
  */
-void init_queue(queue* q)
+void init_queue(void)
 {
-    q = (queue*)malloc(sizeof(queue));
-    q->first = 0;
-    q->last = -1;
-    q->queue = (pcb*)malloc(sizeof(pcb) * queue_size);
+    q = *(queue*)malloc(sizeof(queue));
+    q.first = 0;
+    q.last = -1;
+    q.queue = (pcb*)malloc(sizeof(pcb) * queue_size);
 }
 
 /**
@@ -29,10 +27,13 @@ void init_queue(queue* q)
  * @param item pcb pointer
  * @return (void)
  */
-void addItem(queue* q, pcb* item)
+void addItem(pcb* item)
 {
-    q->queue[q->last] = *item;
-    q->last = (q->last + 1) % queue_size;
+    q.last = (q.last + 1) % queue_size;
+    q.queue[q.last] = *item;
+#ifdef DEBUG
+    printf("PCB added to position %d\n", q.last);
+#endif
 }
 
 /**
@@ -40,19 +41,25 @@ void addItem(queue* q, pcb* item)
  * @param q queue struct pointer
  * @return first pcb at queue
  */
-pcb pop_queue(queue* q)
+pcb pop_queue(void)
 {
     pcb item;
-    pthread_mutex_lock(&queue_mtx);
-    item = q->queue[q->first];
-    q->first = (q->first + 1) % queue_size;
-    pthread_mutex_unlock(&queue_mtx);
+    item = q.queue[q.first];
+    q.first = (q.first + 1) % queue_size;
     return item;
 }
 
-void move_queue(queue* q)
+void move_queue(void)
 {
-    pcb item = pop_queue(q);
+    cprint("Moviendo elementos de la cola\n", YELLOW);
+    if (q.first == q.last)
+    {
+        printf("First: %d; Last: %d\n", q.first, q.last);
+        cprint("Queue empty => Waiting for new process\n", YELLOW);
+        return; /* No hay elementos en la cola */
+    }
+    /* pcb item = pop_queue(); Sacar el primer elemento */
+    /* TODO Cambiar contexto */
 }
 
 /**
@@ -73,20 +80,21 @@ pcb create_pcb(void)
  * @param q queue pointer
  * @return (void)
  */
-void* start_pcb(queue* q)
+void* start_pcb(void)
 {
+    sleep(1);
     while (1)
     {
         pcb obj = create_pcb();
-        while (modulo(q->first - 1, queue_size) == q->last)
+        while (modulo(q.first - 1, queue_size) == q.last)
         {
             /* While queue is full wait */
-            cprint("Queue is full", RED);
-            sleep(2);
+            cprint("Queue is full\n", RED);
+            sleep(4);
         }
-        cprint("Created new pcb", BLUE);
+        cprint("Created new pcb\n", BLUE);
         pthread_mutex_lock(&queue_mtx);
-        addItem(q, &obj); /* Add item to queue end */
+        addItem(&obj); /* Add item to queue end */
         pthread_mutex_unlock(&queue_mtx);
     }
 }

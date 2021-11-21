@@ -2,31 +2,18 @@
 #define _PCB_H
 
 #include "globals.h"
+#include "machine.h"
+#include "types.h"
+#include "utils.h"
+#include <semaphore.h>
 #include <stdlib.h>
-typedef struct
-{
-    long pid;
-    float lifetime;
-} pcb;
+#include <unistd.h>
 
-typedef struct
-{
-    pcb* queue;
-    int first;
-    int last;
-} queue;
-
-void init_queue(queue* q);
-void addItem(queue* q, pcb* item);
-pcb pop_queue(queue* q);
-void move_queue(queue* q);
-
+void init_queue(void);
+void addItem(pcb* item);
+pcb pop_queue(void);
+void move_queue(void);
 pcb create_pcb(void);
-typedef struct
-{
-    queue* q;
-} start_pcb_params;
-
-void* start_pcb(queue* q);
+void* start_pcb();
 
 #endif

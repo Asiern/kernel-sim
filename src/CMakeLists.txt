@@ -6,9 +6,9 @@ set(
     "machine.c"
     "main.c"
     "process.c"
-    "utils.c"
-    "timer.c"
     "scheduler.c"
+    "timer.c"
+    "utils.c"
 )
 
 if(WIN32)

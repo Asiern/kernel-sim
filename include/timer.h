@@ -1,15 +1,9 @@
 #ifndef _TIMER_H
 #define _TIMER_H
+#include "globals.h"
+#include "utils.h"
+#include <stdio.h>
 
-typedef struct
-{
+void* start_timer(void);
 
-} timer;
-
-void* start_timer(void* params);
-
-typedef struct
-{
-    timer* t;
-} start_timer_params;
 #endif

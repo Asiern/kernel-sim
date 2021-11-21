@@ -16,8 +16,12 @@
 #define COLOR_CYAN "\x1b[36m"
 #define COLOR_RESET "\x1b[0m"
 
+#include "globals.h"
 #include <stdio.h>
 
 void cprint(char const* const text, int color);
 int modulo(int x, int y);
+/**
+void printUsage(void);
+int getThreadPos(int cpu, int core, int thread);*/
 #endif

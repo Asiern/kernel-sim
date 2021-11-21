@@ -1,13 +1,28 @@
 #include "timer.h"
-#include "globals.h"
 
 /* GLOBALS */
-extern unsigned long _time;
+unsigned int _time;
+unsigned int tick;
+pthread_mutex_t clock_mtx;
+pthread_mutex_t timer_mtx;
 
-void* start_timer(void* params)
+/**
+ * @brief Timer thread worker
+ * @param (void)
+ * @return (void)
+ */
+void* start_timer(void)
 {
-    start_timer_params* param = (start_timer_params*)params;
     while (1)
     {
+        if (tick < tickrate)
+            continue;
+        pthread_mutex_lock(&clock_mtx);
+        tick = 0;
+        pthread_mutex_lock(&timer_mtx);
+        _time++;
+        printf("%d\n", _time);
+        pthread_mutex_unlock(&timer_mtx);
+        pthread_mutex_unlock(&clock_mtx);
     }
 }
