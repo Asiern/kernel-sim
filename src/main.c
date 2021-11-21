@@ -13,7 +13,7 @@
 /* GLOBALS */
 pthread_mutex_t clock_mutex;
 sem_t proc_queue_sem;
-unsigned int quantum = 4, cpus = 4, cores = 2, threads = 1;
+unsigned int quantum = 4, cpus = 1, cores = 2, threads = 2;
 machine m;
 
 int main(int argc, char* const argv[])
