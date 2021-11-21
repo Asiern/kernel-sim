@@ -55,7 +55,7 @@ cd build && make
 | Directorio | Descripción                                                                                                                      |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | /src       | Contiene el código fuente                                                                                                        |
-| /include   | Contiene los archivos de cabezera                                                                                                |
+| /include   | Contiene los archivos de cabecera                                                                                                |
 | /build     | Directorio destino para los archivos compilados (Esta carpeta se crea automáticamente cuando se configura el entorno de trabajo) |
 | /.github   | Contiene las configuraciones del repositorio de GitHub                                                                           |
 
