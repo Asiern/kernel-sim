@@ -3,8 +3,25 @@
 
 typedef struct
 {
+    int code;
+    int data;
+    int pgb;
+} mm;
+
+typedef struct
+{
+    // TODO add tlb definition
+} mmu;
+typedef struct
+{
     long pid;
     float lifetime;
+    mm mm;
+    int status;
+    int reg[16];
+    int ptbr;
+    int pc;
+    int size;
 } pcb;
 
 typedef struct
@@ -12,6 +29,8 @@ typedef struct
     int id;
     int busy;
     pcb* process;
+    int pc;
+    int ir;
 } thread;
 
 typedef struct

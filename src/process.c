@@ -63,7 +63,8 @@ void move_queue(void)
         cprint("Queue empty => Waiting for new process\n", YELLOW);
         return; /* No hay elementos en la cola */
     }
-    /* pcb item = pop_queue(); Sacar el primer elemento */
+    // Sacar el primer elemento
+    pcb item = pop_queue();
     /* TODO Cambiar contexto */
 }
 

@@ -1,10 +1,10 @@
 #include "utils.h"
 
 /* GLOBALS */
-machine m;
-extern unsigned int cpus;
-extern unsigned int cores;
-extern unsigned int threads;
+// machine m;
+// extern unsigned int cpus;
+// extern unsigned int cores;
+// extern unsigned int threads;
 
 /**
  * @brief Printf with colors!!!

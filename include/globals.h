@@ -19,5 +19,6 @@ extern unsigned int cores;        /* Número de cores por cpu */
 extern unsigned int threads;      /* Número de hilos de un core */
 extern machine m;                 /* Máquina */
 extern queue q;                   /* Cola de procesos */
+extern unsigned char* Memory;     /* Physical memory */
 
 #endif

@@ -5,6 +5,7 @@
 #include "clock.h"
 #include "globals.h"
 #include "machine.h"
+#include "physical.h"
 #include "process.h"
 #include "scheduler.h"
 #include "timer.h"
@@ -70,6 +71,7 @@ int main(int argc, char* const argv[])
     /* Inicializar machine */
     init_machine(&m, cpus, cores, threads);
     init_queue();
+    init_memory();
 
     /* Lanzar los hilos */
     cprint("Lanzando hilos...\n", GREEN);

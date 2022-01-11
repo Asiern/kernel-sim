@@ -3,3 +3,9 @@
 
 # VSCode
 /.vscode
+
+# Elf
+*.elf
+
+# Prometeo
+/input/prometeo3
