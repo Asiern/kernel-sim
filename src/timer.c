@@ -21,7 +21,7 @@ void* start_timer(void)
         tick = 0;
         pthread_mutex_lock(&timer_mtx);
         _time++;
-        printf("%d\n", _time);
+        printf("[TIMER] %d\n", _time);
         pthread_mutex_unlock(&timer_mtx);
         pthread_mutex_unlock(&clock_mtx);
     }
