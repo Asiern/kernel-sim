@@ -50,10 +50,7 @@ int loadData(int addr)
     return Memory[addr];
 }
 
-unsigned char getVirtualAddress(int address)
+int getPhysicalAddress(int address)
 {
-}
-
-int getPhysicalAddress(unsigned char address)
-{
+    return address & 0x0;
 }

@@ -131,7 +131,7 @@ void runThreadCycle(thread* t)
         int store = t->process->reg[decodedInst.reg];
         // Translate dst addr
         address = getPhysicalAddress(decodedInst.addr);
-        // TODO save value to mem
+        // Save value to mem
         storeData(address, store);
         // Increase pc
         t->process->pc++;

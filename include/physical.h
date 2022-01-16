@@ -17,7 +17,6 @@ unsigned char readPMemory(unsigned char* address);
 int checkMemorySpace(int size);
 void storeData(int addr, int data);
 int loadData(int addr);
-unsigned char getVirtualAddress(int address);
-int getPhysicalAddress(unsigned char address);
+int getPhysicalAddress(int address);
 
 #endif
