@@ -10,7 +10,9 @@
 #include <string.h>
 
 pthread_mutex_t queue_mtx;
+pthread_mutex_t memory_mtx;
 unsigned long last_id;
+int freeSpace;
 
 void* loader(void)
 {
@@ -52,11 +54,19 @@ void* loader(void)
                     sleep(2);
                     continue;
                 }
+                if (freeSpace < progsize)
+                {
+                    cprint("[LOADER] Memory full\n", GREEN);
+                    sleep(2);
+                    continue;
+                }
                 else
                 {
                     pthread_mutex_lock(&queue_mtx);
+                    pthread_mutex_lock(&memory_mtx);
                     if (isQueueFull() == 0)
                     {
+                        pthread_mutex_unlock(&memory_mtx);
                         pthread_mutex_unlock(&queue_mtx);
                         continue;
                     }
@@ -102,6 +112,7 @@ void* loader(void)
                 }
                 lineNumber++;
             }
+            freeSpace -= progsize * 8 * sizeof(unsigned char);
 
             // Create PCB
             pcb* p = (pcb*)malloc(sizeof(pcb));
@@ -117,6 +128,7 @@ void* loader(void)
             // Add pcb to queue
             printf("[LOADER] Loaded process pid: %ld\n", p->pid);
             addItem(p);
+            pthread_mutex_unlock(&memory_mtx);
             pthread_mutex_unlock(&queue_mtx);
 
             // Increase last id

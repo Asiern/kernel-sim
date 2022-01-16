@@ -11,6 +11,7 @@ extern pthread_mutex_t clock_mtx;   /* Mutex del reloj */
 extern pthread_mutex_t timer_mtx;   /* Mutex del temporizador */
 extern pthread_mutex_t queue_mtx;   /* Mutex de la cola de procesos */
 extern pthread_mutex_t machine_mtx; /* Mutex de la máquina */
+extern pthread_mutex_t memory_mtx;  /* Mutex de la memoria */
 extern unsigned long last_id;       /* Id del último proceso generado */
 extern unsigned int tick;           /* Último tick del reloj */
 extern unsigned int _time;          /* Tiempo del temporizador */
