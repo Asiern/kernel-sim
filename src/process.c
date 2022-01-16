@@ -16,9 +16,9 @@ queue q;
 void init_queue(void)
 {
     q = *(queue*)malloc(sizeof(queue));
-    q.first = 0;
-    q.last = -1;
-    q.queue = (pcb*)malloc(sizeof(pcb) * queue_size);
+    q.count = -1;
+    q.first = NULL;
+    q.last = NULL;
 }
 
 /**
@@ -29,77 +29,75 @@ void init_queue(void)
  */
 void addItem(pcb* item)
 {
-    q.last = (q.last + 1) % queue_size;
-    q.queue[q.last] = *item;
-#ifdef DEBUG
-    printf("PCB added to position %d\n", q.last);
-#endif
+    queue_node* curr = q.first;
+    queue_node* node = (queue_node*)malloc(sizeof(queue_node));
+    node->item = item;
+    node->next = NULL;
+    if (curr == NULL)
+    {
+        q.first = node;
+        q.last = node;
+        q.count = 1;
+    }
+    else
+    {
+        q.last->next = node;
+        q.last = node;
+        q.count++;
+    }
 }
 
 /**
  * @brief Pop first queue item
- * @param q queue struct pointer
  * @return first pcb at queue
  */
-pcb pop_queue(void)
+pcb* pop_queue(void)
 {
-    pcb item;
-    item = q.queue[q.first];
-    q.first = (q.first + 1) % queue_size;
+    pcb* item;
+    item = q.first->item;
+    queue_node* old = q.first;
+    q.first = q.first->next;
+    q.count--;
+    free(old);
     return item;
 }
 
 /**
- * @brief Move queue
- * @param (void)
- * @return (void)
+ * @brief
+ * @return
  */
-void move_queue(void)
+int isQueueFull()
 {
-    cprint("Moviendo elementos de la cola\n", YELLOW);
-    if (q.first == q.last)
-    {
-        printf("First: %d; Last: %d\n", q.first, q.last);
-        cprint("Queue empty => Waiting for new process\n", YELLOW);
-        return; /* No hay elementos en la cola */
-    }
-    /* pcb item = pop_queue(); Sacar el primer elemento */
-    /* TODO Cambiar contexto */
+    if (q.count == queue_size)
+        return 0;
+    return 1;
 }
 
 /**
- * @brief Generate pcb
- * @param (void)
- * @return Generated pcb
+ * @brief Enqueue item and return first
+ * @param item
+ * @return
  */
-pcb create_pcb(void)
+pcb* replaceItem(pcb* item)
 {
-    pcb p;
-    p.pid = last_id + 1;
-    p.lifetime = rand();
-    return p;
+    pcb* first = q.first->item;
+    q.first = q.first->next;
+    queue_node* last = (queue_node*)malloc(sizeof(queue_node));
+    last->next = NULL;
+    last->item = item;
+    q.last->next = last;
+    q.last = last;
+    return first;
 }
 
-/**
- * @brief PCB Generator thread worker
- * @param q queue pointer
- * @return (void)
- */
-void* start_pcb(void)
+void print_queue()
 {
-    sleep(1);
-    while (1)
+    queue_node* n = q.first;
+    int id = 0;
+    while (n->next != NULL)
     {
-        pcb obj = create_pcb();
-        while (modulo(q.first - 1, queue_size) == q.last)
-        {
-            /* While queue is full wait */
-            cprint("Queue is full\n", RED);
-            sleep(4);
-        }
-        cprint("Created new pcb\n", BLUE);
-        pthread_mutex_lock(&queue_mtx);
-        addItem(&obj); /* Add item to queue end */
-        pthread_mutex_unlock(&queue_mtx);
+        printf("[QUEUE] Node %d, pid: %ld\n", id, n->item->pid);
+        id++;
+        sleep(2);
     }
 }

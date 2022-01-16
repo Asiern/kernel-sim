@@ -9,6 +9,8 @@ set(
     "scheduler.c"
     "timer.c"
     "utils.c"
+    "physical.c"
+    "loader.c"
 )
 
 if(WIN32)
