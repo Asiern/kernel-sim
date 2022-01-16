@@ -200,8 +200,13 @@ instruction decodeInstruction(unsigned char* encoded)
     }
     else
     {
-        // TODO FIX Get address
-        decoded.addr = (int)strtol((char*)encoded + 2, NULL, 16);
+        // Get address
+        unsigned char* addr = (unsigned char*)malloc(sizeof(unsigned char) * 6);
+        for (int i = 0; i < 6; i++)
+            addr[i] = encoded[2 + i];
+        decoded.addr = (int)strtol((char*)addr, NULL, 16);
+
+        free(addr);
     }
     decoded.reg = getRegister(encoded[1]);
     return decoded;
