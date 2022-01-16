@@ -4,9 +4,9 @@
 
 #include "clock.h"
 #include "globals.h"
+#include "loader.h"
 #include "machine.h"
 #include "physical.h"
-#include "process.h"
 #include "scheduler.h"
 #include "timer.h"
 #include "utils.h"
@@ -43,7 +43,7 @@ int main(int argc, char* const argv[])
             cprint("USAGE:\n", CYAN);
             cprint("   ./kernel-sim -q [quantum] -c [number of cpus] -r [number of cores] -t [number of threads]\n", 0);
             cprint("OPTIONS:\n", CYAN);
-            cprint("   -q, set scheduler quantum (default 4)\n", 0);
+            cprint("   -q, set scheduler quantum (default 4s)\n", 0);
             cprint("   -c, set number of cups (default 1)\n", 0);
             cprint("   -q, set number of cores per cpu (default 2)\n", 0);
             cprint("   -q, set number of thread per core (default 2)\n", 0);
@@ -81,7 +81,8 @@ int main(int argc, char* const argv[])
     pthread_create(&clock_thread, NULL, (void*)start_clock, NULL);
 
     cprint("Creando hilo del PG...\n", GREEN);
-    pthread_create(&pgen_thread, NULL, (void*)start_pcb, NULL);
+    // TODO launch loader
+    pthread_create(&pgen_thread, NULL, (void*)loader, NULL);
 
     cprint("Creando hilo del Timer...\n", GREEN);
     pthread_create(&timer_thread, NULL, (void*)start_timer, NULL);
@@ -89,12 +90,13 @@ int main(int argc, char* const argv[])
     cprint("Creando hilo del Sched...\n", GREEN);
     pthread_create(&sched_thread, NULL, (void*)start_sched, NULL);
 
-    /* EL PROGRAMA NO DEBERIA DE PASAR DE AQUI */
-
+    // Join threads
     pthread_join(clock_thread, NULL);
     pthread_join(pgen_thread, NULL);
     pthread_join(timer_thread, NULL);
     pthread_join(sched_thread, NULL);
+
+    // Free
 
     return 0;
 }

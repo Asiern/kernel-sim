@@ -9,8 +9,15 @@
 #define mem_size 1 << 24
 #define kernel_start_add 0x0
 #define kernel_end_add 0x3FFFFF
+#define USER_RESERVED 1
+#define KERNEL_RESERVED 2
 
 void init_memory(void);
 unsigned char readPMemory(unsigned char* address);
+int checkMemorySpace(int size);
+void storeData(int addr, int data);
+int loadData(int addr);
+unsigned char getVirtualAddress(int address);
+int getPhysicalAddress(unsigned char address);
 
 #endif

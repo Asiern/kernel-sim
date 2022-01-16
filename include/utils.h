@@ -21,7 +21,5 @@
 
 void cprint(char const* const text, int color);
 int modulo(int x, int y);
-/**
-void printUsage(void);
-int getThreadPos(int cpu, int core, int thread);*/
+unsigned char* ustrcat(unsigned char* dest, const unsigned char* src);
 #endif

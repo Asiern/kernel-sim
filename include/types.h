@@ -3,21 +3,30 @@
 
 typedef struct
 {
-    int code;
-    int data;
+    int op;
+    int reg;
+    int op1;
+    int op2;
+    int addr;
+} instruction;
+
+typedef struct
+{
+    unsigned char* code;
+    unsigned char* data;
     int pgb;
 } mm;
 
 typedef struct
 {
-    // TODO add tlb definition
+    unsigned char* tlb;
 } mmu;
+
 typedef struct
 {
     long pid;
-    float lifetime;
     mm mm;
-    int status;
+    int status; // Status 0 => finished; 1 => unfinished
     int reg[16];
     int ptbr;
     int pc;
@@ -27,33 +36,41 @@ typedef struct
 typedef struct
 {
     int id;
-    int busy;
+    int busy; // O not busy; 1 busy
     pcb* process;
-    int pc;
     int ir;
 } thread;
 
 typedef struct
 {
     thread* threads;
+    int id;
 } core;
 
 typedef struct
 {
     core* cores;
+    int id;
 } cpu;
 
 typedef struct
 {
     cpu* cpus;
-    /*unsigned int* usage;*/
+    int freethreads;
 } machine;
+
+struct queue_node
+{
+    pcb* item;
+    struct queue_node* next;
+};
+typedef struct queue_node queue_node;
 
 typedef struct
 {
-    pcb* queue;
-    int first;
-    int last;
+    queue_node* first;
+    queue_node* last;
+    int count;
 } queue;
 
 #endif

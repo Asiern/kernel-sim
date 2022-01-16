@@ -11,9 +11,9 @@
 
 void init_queue(void);
 void addItem(pcb* item);
-pcb pop_queue(void);
-void move_queue(void);
-pcb create_pcb(void);
-void* start_pcb();
+pcb* pop_queue(void);
+int isQueueFull(void);
+pcb* replaceItem(pcb* item);
+void print_queue();
 
 #endif
